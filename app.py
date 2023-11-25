@@ -322,6 +322,7 @@ def stream_with_data(body, headers, endpoint, history_metadata={}):
 
                     if 'error' in lineJson:
                         yield format_as_ndjson(lineJson)
+                    logging.error(f"TEST lineJson: {json.dumps(lineJson, indent=4)}")
                     response["id"] = lineJson["id"]
                     response["model"] = lineJson["model"]
                     response["created"] = lineJson["created"]
