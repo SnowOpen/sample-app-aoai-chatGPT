@@ -311,6 +311,7 @@ def stream_with_data(body, headers, endpoint, history_metadata={}):
                     'history_metadata': history_metadata
                 }
                 if line:
+                    logging.debug(f"TEST line: {line}")
                     if AZURE_OPENAI_PREVIEW_API_VERSION == '2023-06-01-preview':
                         lineJson = json.loads(line.lstrip(b'data:').decode('utf-8'))
                     else:
@@ -322,7 +323,8 @@ def stream_with_data(body, headers, endpoint, history_metadata={}):
 
                     if 'error' in lineJson:
                         yield format_as_ndjson(lineJson)
-                    logging.error(f"TEST lineJson: {json.dumps(lineJson, indent=4)}")
+                        
+                    logging.debug(f"TEST lineJson: {json.dumps(lineJson, indent=4)}")
                     response["id"] = lineJson["id"]
                     response["model"] = lineJson["model"]
                     response["created"] = lineJson["created"]
